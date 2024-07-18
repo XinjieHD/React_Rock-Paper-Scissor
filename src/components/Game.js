@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import './Game.css';
 
 class Game extends Component{
+	// Constructor to initialize the state
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -12,25 +13,31 @@ class Game extends Component{
 			tieCount: 0,
 		};
 	}
-
+	// Function to determine the outcome of the game
 	logic = (player, computer) => {
+		// If both choices are the same, it's a tie
 		if (player === computer) {
 			return 0;
+		// Determine if the player wins
 		} else if (
 			(player === "ROCK" && computer === "SCISSORS") ||
 			(player === "SCISSORS" && computer === "PAPER") ||
 			(player === "PAPER" && computer === "ROCK")
 		) {
 			return 1;
+		// Otherwise, the computer wins
 		} else {
 			return -1;
 		}
 	}
 
+	// Function to handle the player's choice and update the state
 	decision = (playerChoice) => {
 		const choices = ["ROCK", "PAPER", "SCISSORS"];
 		const compChoice = choices[Math.floor(Math.random() * choices.length)];
 		const val = this.logic(playerChoice, compChoice);
+
+		// Update the state based on the outcome
 		if (val === 1) {
 			this.setState({
 				player: playerChoice,
@@ -52,6 +59,7 @@ class Game extends Component{
 		}
 	}
 
+	// Render the UI
 	render() {
 		const { player, computer, playerScore, compScore, tieCount } = this.state;
 		return (
